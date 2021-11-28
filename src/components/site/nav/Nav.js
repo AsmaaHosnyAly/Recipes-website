@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutInitiate } from '../../../redux/authAction'
+import {NavDropdown} from 'react-bootstrap'
+import profil from "../../../assets/img/profile_img.jpg";
+
 
 const Nav = () => {
   const url = '#'
@@ -27,9 +30,36 @@ const Nav = () => {
         </div>
         <div className='right-side'>
           {currentUser ? (
-            <button className='login__btn nav__btn' onClick={hundleAuth}>
-              Log out
-            </button>
+            
+               <>
+               
+               <NavDropdown
+                title={
+                  <div className=" d-flex align-items-center">
+                  
+                  <img
+                    src={profil}
+                    width="50"
+                    height="50 "
+                    className="rounded-circle profile-img"
+                  />
+                  <p className="p-2 m-1 text-dark">Ahmed</p>
+                  </div>
+                }
+                
+                id="nav-dropdown"
+              >
+                
+                <NavDropdown.Item eventKey="4.2">
+                  My profile
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item eventKey="4.4" onClick={hundleAuth}>
+                  Log out
+                </NavDropdown.Item>
+              </NavDropdown>
+              
+            </>
           ) : (
             <>
               <Link to='/login'>
