@@ -3,7 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import food from "../../../assets/img/signup-food.png";
+import { db } from './../../../firebase'
 import "./signup.css";
+import Nav from '../../../components/site/nav/Nav';
+ 
+import { 
+  collection,
+  onSnapshot,
+  doc,
+  setDoc,
+  deleteDoc,
+  addDoc,
+} from 'firebase/firestore'
 
 function Signup() {
   const [signup, setSignup] = useState({
@@ -12,6 +23,9 @@ function Signup() {
     password: "",
     confirmPass: "",
   });
+  
+  const[user,setUser]=useState("")
+  
 
   const [errors, setErrors] = useState({
     displayName: null,
@@ -23,6 +37,13 @@ function Signup() {
   const { currentUser } = useSelector((state) => state.user); //get data from redux
 
   const history = useHistory();
+  useEffect(
+    () =>
+      onSnapshot(collection(db, 'users'), (snapshot) =>
+        setUser(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+      ),
+    []
+  )
   // I made it to move user to home if he sign up
   useEffect(() => {
     if (currentUser) {
@@ -35,12 +56,31 @@ function Signup() {
   const submitForm = (e) => {
     //validate auth
     e.preventDefault();
+    
     if (signup.password !== signup.confirmPass) {
       return;
     }
     dispatch(
       registerInitiate(signup.email, signup.password, signup.displayName)
     );
+
+      addDoc(collection(db, "users"), {
+        displayName: signup.displayName,
+        email:signup.email,
+        password: signup.password,
+
+        
+      })
+        .then((data) => {
+          // alert("Recipe Added successefuly 👍");
+          // return history.push("/Dashboard/RC");
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+      
+    
+    
     setSignup({ email: "", displayName: "", password: "" });
   };
 
@@ -140,6 +180,7 @@ function Signup() {
 
   return (
     <>
+    <Nav/>
       <main className="signup__container">
         <img className="main__img" src={food} alt="..." />
 
