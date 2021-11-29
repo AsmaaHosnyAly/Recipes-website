@@ -1,4 +1,9 @@
 //they are diffrent types of actions (register, login , log out, loader, googla Auth, facebook Auth)
+export const UPDATE_WISHLIST = "UPDATE_WISHLIST";
+export const REMOVE_ITEM = "REMOVE_ITEM";
+
+
+
 export const REGISTER_START = "REGISTER_START";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";

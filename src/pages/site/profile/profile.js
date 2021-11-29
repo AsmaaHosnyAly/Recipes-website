@@ -2,8 +2,32 @@
 import './profile.css'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
+import { useEffect, useState } from 'react'
+import { db } from '../../../firebase'
+import { Link } from 'react-router-dom'
+import {
+  collection,
+  onSnapshot,
+  doc,
+  setDoc,
+  deleteDoc,
+} from 'firebase/firestore'
+
+
 
 function Profile() {
+
+  const [recipes, setRecipes] = useState([])
+  // console.log(recipes);
+  useEffect(
+    () =>
+      onSnapshot(collection(db, 'recipes'), (snapshot) =>
+        setRecipes(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+      ),
+    []
+  )
+
+
   return (
     // <section className='profile'>
     //   <div className='profile__tabs'>

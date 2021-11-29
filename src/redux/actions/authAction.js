@@ -1,5 +1,5 @@
-import * as types from "./authActionTypes";
-import { auth, google, facebook, auth2 } from "../firebase";
+import * as types from "../authActionTypes";
+import { auth, google, facebook, auth2 } from "../../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
