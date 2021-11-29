@@ -1,23 +1,31 @@
 import './search.css'
-import category1 from '../../../assets/img/category1.webp'
-import category2 from '../../../assets/img/category2.jfif'
-import category3 from '../../../assets/img/category3.jfif'
-import category4 from '../../../assets/img/category4.jfif'
-import category5 from '../../../assets/img/category5.jfif'
-import category6 from '../../../assets/img/category6.jfif'
-import category7 from '../../../assets/img/category7.jfif'
-import category8 from '../../../assets/img/category8.jfif'
-import category9 from '../../../assets/img/category9.jfif'
-import { useSelector } from 'react-redux'
-import { useRef } from 'react'
+import { useRef, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Swiper, SwiperSlide } from 'swiper/react/swiper-react'
 import SwiperCore, { Navigation, Autoplay } from 'swiper'
 import 'swiper/modules/navigation/navigation.min.css'
-
 import 'swiper/swiper.min.css'
 import 'swiper/swiper-bundle.css'
 
+// Firebase imports
+import { collection, onSnapshot } from '@firebase/firestore'
+import { db } from '../../../firebase'
+
 const Search = () => {
+  // Get categories from Firebase
+  const [categories, setCategories] = useState([])
+  useEffect(
+    () =>
+      onSnapshot(collection(db, 'Category_of_recipes'), (snapshot) =>
+        setCategories(
+          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        )
+      ),
+    []
+  )
+  console.log(...categories.map((cat) => cat.Name))
+
+  // Handle Swiper
   SwiperCore.use([Navigation, Autoplay])
   const swiperRef = useRef(null)
   return (
@@ -41,7 +49,9 @@ const Search = () => {
               <path d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z' />
             </svg>
           </label>
-          <h4 className='search__title'>Ingredients</h4>
+          <h4 className='search__title'>
+            Categories <i class='bx bx-right-arrow-alt'></i>
+          </h4>
         </div>
 
         <Swiper
@@ -54,48 +64,29 @@ const Search = () => {
           ref={swiperRef}
           style={{ direction: 'rtl' }}
           breakpoints={{
-            // when window width is >= 750px
             750: {
               slidesPerView: 6,
             },
           }}
         >
-          <SwiperSlide>
-            <img className='categorie__img' src={category1} alt='...' />
-            <p>Desert</p>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img className='categorie__img' src={category2} alt='...' />
-            <p>Candy</p>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img className='categorie__img' src={category3} alt='...' />
-            <p>Sea Food</p>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img className='categorie__img' src={category4} alt='...' />
-            <p>Grills</p>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img className='categorie__img' src={category5} alt='...' />
-            <p>Apetizer</p>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img className='categorie__img' src={category6} alt='...' />
-            <p>Breakfast</p>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img className='categorie__img' src={category7} alt='...' />
-            <p>Launch</p>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img className='categorie__img' src={category8} alt='...' />
-            <p>Dinner</p>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img className='categorie__img' src={category9} alt='...' />
-            <p>Pastries</p>
-          </SwiperSlide>
+          {categories ? (
+            categories.map((categorie) => {
+              return (
+                <SwiperSlide key={categorie.id}>
+                  <Link to={`/${categorie.Name}`} className='categorie'>
+                    <img
+                      className='categorie__img'
+                      src={categorie.imagePath}
+                      alt='...'
+                    />
+                    <p>{categorie.Name}</p>
+                  </Link>
+                </SwiperSlide>
+              )
+            })
+          ) : (
+            <h1>Loading...</h1>
+          )}
         </Swiper>
       </section>
     </div>
