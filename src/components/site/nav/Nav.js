@@ -9,7 +9,9 @@ import profil from "../../../assets/img/profile_img.jpg";
 
 const Nav = () => {
   const url = "#";
-  const { currentUser } = useSelector((state) => state.user); //get data from redux
+  const _recipes  = useSelector((state) => state.wishlist.recipes);
+  const { currentUser } = useSelector((state) => state.user);
+  console.log(_recipes) ;//get data from redux
   const dispatch = useDispatch();
   // logic to hundle log out
   const hundleAuth = () => {
@@ -25,7 +27,9 @@ const Nav = () => {
           <Link to="/">
             <img src={logo} alt="logo" className="logo" />
           </Link>
-          <h3 className="nav__heading"> Wasfity </h3>
+          <Link to="/">
+          <h3 className="nav__heading text-dark"> Wasfity </h3>
+          </Link>
         </div>
         <div className="right-side">
           {currentUser ? (
@@ -39,12 +43,18 @@ const Nav = () => {
                       height="50 "
                       className="rounded-circle profile-img"
                     />
-                    <p className="p-2 m-1 text-dark">Ahmed</p>
+                    <p className="p-2 m-1 text-dark">{currentUser.displayName}</p>
                   </div>
                 }
                 id="nav-dropdown"
               >
-                <NavDropdown.Item eventKey="4.2">My profile</NavDropdown.Item>
+                 <Link to="/profile">
+                <NavDropdown.Item eventKey="4.2">
+                 
+                  My profile
+                 
+                  </NavDropdown.Item>
+                  </Link>
                 <NavDropdown.Divider />
                 <NavDropdown.Item eventKey="4.4" onClick={hundleAuth}>
                   Log out
@@ -60,25 +70,10 @@ const Nav = () => {
                 <button className="register__btn nav__btn"> Register </button>
               </Link>
 
-              <Link to="/wishlist" class="d-flex align-items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-heart-fill"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
-                  />
-                </svg>
-                <span className="badge bg-danger ms-1">0</span>
-              </Link>
+              
             </>
           )}
-          <Link to="/wishlist" class="d-flex align-items-center">
+          <Link to="/profile" class="d-flex align-items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -92,7 +87,7 @@ const Nav = () => {
                     d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
                   />
                 </svg>
-                <span className="badge bg-danger ms-1 ">0</span>
+                <span className="badge bg-danger ms-1 ">{_recipes.length}</span>
               </Link>
           <button className="language__btn btn"> English </button>
         </div>

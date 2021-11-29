@@ -21,12 +21,12 @@ const RecipeList = () => {
     []
   )
 
-  console.log(recipes)
-  const addToWishlist = (id) => {
-      console.log(id);
-    dispatch(
-   
-    )
+ 
+  // console.log(recipes)
+
+  const addToWishlist = (recipe) => {
+      // console.log(recipe);
+      dispatch(updateWishlist(recipe))
   }
   const removeItemFromWishList = index => {
 
@@ -42,7 +42,7 @@ const RecipeList = () => {
           return <>
 
            < Recipe {...recipe} key={recipe.id} />
-           <button onClick={addToWishlist()}><svg
+           <button onClick={addToWishlist(recipe)}><svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
                   height="16"
