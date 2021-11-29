@@ -24,7 +24,6 @@
     "react-scripts": "4.0.3",
     "react-tabs": "^3.2.3",
     "redux": "^4.1.2",
-    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.4.0",
     "styled-components": "^5.3.3",
     "swiper": "^7.3.1",
@@ -55,6 +54,7 @@
     ]
   },
   "devDependencies": {
-    "react-hooks-use-modal": "^2.1.0"
+    "react-hooks-use-modal": "^2.1.0",
+    "redux-logger": "^3.0.6"
   }
 }

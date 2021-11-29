@@ -27,18 +27,6 @@ const Filter = () => {
     }
     console.log(recipes)
   }
-  // if (!searchInput) {
-  //   return recipes
-  // } else {
-  //   setRecipes(
-  //     recipes.filter((recipe) => {
-  //       return recipe.recipeName
-  //         .toLowerCase()
-  //         .includes(searchInput.toLocaleLowerCase())
-  //     })
-  //   )
-  // }
-  console.log(recipes)
   return (
     <section className='filter'>
       <div className='filter__filter'>
