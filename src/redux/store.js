@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from "redux";
 import logger from "redux-logger"; // this middleware logger I see it in youtube
 import thunk from "redux-thunk"; // this middleware thunk
-import rootReducer from "./rootReducer"; // it's combine
+import rootReducer from "../redux/reducer/rootReducer"; // it's combine
 
 const middleware = [thunk];
 //this process.env.NODE_ENV built in react with server help to use middleware logger

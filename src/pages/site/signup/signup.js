@@ -1,4 +1,4 @@
-import { registerInitiate } from "../../../redux/authAction"; // import auth
+import { registerInitiate } from "../../../redux/actions/authAction"; // import auth
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -10,9 +10,6 @@ import Nav from '../../../components/site/nav/Nav';
 import { 
   collection,
   onSnapshot,
-  doc,
-  setDoc,
-  deleteDoc,
   addDoc,
 } from 'firebase/firestore'
 
@@ -37,13 +34,7 @@ function Signup() {
   const { currentUser } = useSelector((state) => state.user); //get data from redux
 
   const history = useHistory();
-  useEffect(
-    () =>
-      onSnapshot(collection(db, 'users'), (snapshot) =>
-        setUser(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-      ),
-    []
-  )
+  
   // I made it to move user to home if he sign up
   useEffect(() => {
     if (currentUser) {

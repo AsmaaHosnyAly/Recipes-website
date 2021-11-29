@@ -1,5 +1,11 @@
 import food from "../../../assets/img/login-food.png";
 import "./login.css";
+import { db } from './../../../firebase'
+import { 
+  collection,
+  onSnapshot,
+  addDoc,
+} from 'firebase/firestore'
 
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
@@ -9,7 +15,7 @@ import {
   fbSignInInitiate,
   googleSignInInitiate,
   loginInitiate,
-} from "../../../redux/authAction"; // import auth
+} from "../../../redux/actions/authAction"; // import auth
 
 function Login() {
   const [login, setlogin] = useState({
@@ -21,6 +27,8 @@ function Login() {
     email: null,
     password: null,
   });
+  const history = useHistory();
+ 
   // Social Login{
   const GoogleSignin = () => {
     dispatch(googleSignInInitiate());
@@ -32,7 +40,7 @@ function Login() {
 
   const { currentUser } = useSelector((state) => state.user); //get data from redux
 
-  const history = useHistory();
+  
   // I made it to move user to home if he sign in
   useEffect(() => {
     if (currentUser) {
@@ -49,7 +57,22 @@ function Login() {
       return;
     }
     dispatch(loginInitiate(login.email, login.password));
+    
     setlogin({ email: "", password: "" });
+    addDoc(collection(db, "users"), {
+      displayName: "",
+      email:currentUser.email,
+      password: currentUser.password,
+
+      
+    })
+      .then((data) => {
+        // alert("Recipe Added successefuly 👍");
+        // return history.push("/Dashboard/RC");
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
   //////////////////////////////// Email Validation //
