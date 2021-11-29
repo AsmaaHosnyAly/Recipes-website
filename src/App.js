@@ -2,6 +2,7 @@ import './App.css'
 import Home from './pages/site/home/home'
 import Nav from './components/site/nav/Nav'
 import Footer from './components/site/footer/Footer'
+import Filter from './pages/site/filter/filter'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import RecipeDetails from './pages/site/recipeDetails/recipeDetails'
@@ -38,6 +39,7 @@ function App() {
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={Signup} />
           <Route exact path='/profile' component={Profile} />
+          <Route exact path='/filter' component={Filter} />
           <Route exact path='/:id' component={RecipeDetails} />
         </Switch>
         <Footer />

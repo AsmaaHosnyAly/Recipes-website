@@ -12,6 +12,17 @@
   align-items: center;
   gap: 2rem;
 }
+.advanceFilter {
+  color: var(--main-clr);
+  border-radius: 20px;
+  padding: 0.5rem 1.5rem;
+  background-color: var(--white-clr);
+  transition: 0.2s;
+}
+.advanceFilter:hover {
+  color: var(--main-clr);
+  transform: translateY(-3px);
+}
 
 .swiper-slide {
   display: flex;

@@ -36,6 +36,9 @@ const Search = () => {
         onMouseLeave={() => swiperRef.current.swiper.autoplay.start()}
       >
         <div className='search__bar'>
+          <Link to='/filter' className='advanceFilter'>
+            Advanced Filter <i class='bx bx-right-top-arrow-circle'></i>
+          </Link>
           <label className='search__label'>
             <input className='search__input' placeholder='Search' />
             <svg
