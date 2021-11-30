@@ -15,7 +15,10 @@ import Login from './pages/site/login/login'
 import Signup from './pages/site/signup/signup'
 import Profile from './pages/site/profile/profile'
 import React, { useEffect } from 'react'
+import SearchRecipe from './components/site/search/SearchRecipe.js'
 import { store } from './redux/store'
+
+import RecipeCat from './pages/site/RecipeCat/RecipeCat'
 
 function App() {
   const dispatch = useDispatch()
@@ -39,6 +42,8 @@ function App() {
           <Route exact path='/register' component={Signup} />
           <Route exact path='/profile' component={Profile} />
           <Route exact path='/:id' component={RecipeDetails} />
+          <Route exact path='/RecipeCat/:id' component={RecipeCat} />
+          <Route exact path='/SearchRecipe/:searchTxt' component={SearchRecipe} />
         </Switch>
         <Footer />
       </div>

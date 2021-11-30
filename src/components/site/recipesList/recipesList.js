@@ -23,9 +23,9 @@ const RecipeList = () => {
 
  
   // console.log(recipes)
-
+  
   const addToWishlist = (recipe) => {
-      // console.log(recipe);
+      console.log(recipe);
       dispatch(updateWishlist(recipe))
   }
   const removeItemFromWishList = index => {

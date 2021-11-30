@@ -34,7 +34,6 @@ const Recipe = ({
               {DegreeOfDifficulty.toUpperCase()}
             </p>
           </div>
-          
         </div>
       </section>
     </Link>

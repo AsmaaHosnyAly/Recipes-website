@@ -1,4 +1,4 @@
-import * as types from "../authActionTypes";
+import * as types from "../../redux/actions/authActionTypes";
 
 
 export const updateWishlist = (data) => {
