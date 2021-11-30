@@ -1,32 +1,25 @@
 import React from 'react'
 import { useLocation, useParams } from 'react-router'
 import { db, app } from '../../../firebase'
-import { useEffect ,useState} from 'react';
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-} from 'firebase/firestore'
-
-
+import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { collection, query, where, getDocs } from 'firebase/firestore'
 
 export default function RecipeCat() {
-    const nameCat =useParams()
-    const  location =useLocation()
-    // const recipeId = search.split("=")[1]
-    const recipeCatId= location.search.slice(1).split("&")[0].split("=")[1]
-    const [recipesCat,setRecipeCat]=useState([]);
+  const nameCat = useParams()
+  const location = useLocation()
+  // const recipeId = search.split("=")[1]
+  const recipeCatId = location.search.slice(1).split('&')[0].split('=')[1]
+  const [recipesCat, setRecipeCat] = useState([])
 
-   
-const TestQuery = async (id) => {
+  const TestQuery = async (id) => {
     console.log('call test query', id)
     const q = query(
       collection(db, 'recipes'),
       where('categoryRecipeId', '==', `${id}`)
     )
     const querySnapshot = await getDocs(q)
-    let list = [{  }]
+    let list = []
 
     querySnapshot.forEach((recipe) => {
       let item = {
@@ -36,31 +29,50 @@ const TestQuery = async (id) => {
     })
     console.log('list', list)
     setRecipeCat(list)
-   
   }
-    
-    
-      TestQuery(recipeCatId)
-    return (
-        <div>
-            {recipesCat.map((recipe)=>{
-                return(
-                 <div>
-                    <div>
-                        { <img
-                    src={recipe.imagePath}
-                    alt='...'
-                    width='100'
-                    height='100'
-                  />}
+  useEffect(() => {
+    TestQuery(recipeCatId)
+  }, [])
+  return (
+    <div
+      style={{
+        marginTop: '6rem',
+        display: 'flex',
+        flexDirection: 'column',
+        textAlign: 'center',
+      }}
+    >
+      <h1>Category</h1>
+      <div className='recipe-list'>
+        {recipesCat.map((recipe) => {
+          return (
+            <Link to={`/${recipe.index}`} key={recipe.index}>
+              <section className='one-recipe'>
+                <div className='one-recipe__img'>
+                  <img src={recipe.imagePath} alt='...' />
+                </div>
+                <div className='one-recipe__content'>
+                  <div className='one-recipe__heading'>
+                    <small className='one-recipe__category'>
+                      {recipe.recipeCatName}
+                    </small>
+                    <h4 className='one-recipe__title'>{recipe.recipeName}</h4>
                   </div>
-               </div>
-                )
-            })}
-           <div>
-
-           </div>
-          
-        </div>
-    )
+                  <div className='one-recipe__data'>
+                    <p className='one-recipe__time'>
+                      <i class='bx bx-time-five'></i> {recipe.recipePreperTime}
+                    </p>
+                    <p className='one-recipe__difficulty'>
+                      {recipe.DegreeOfDifficulty.toUpperCase()}
+                    </p>
+                  </div>
+                </div>
+              </section>
+            </Link>
+          )
+        })}
+        <div></div>
+      </div>
+    </div>
+  )
 }
