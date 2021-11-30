@@ -20,10 +20,10 @@ const RecipeList = () => {
     []
   )
 
-  // Handle Wishlist
+  // console.log(recipes)
   const dispatch = useDispatch()
   const addToWishlist = (recipe) => {
-    // console.log(recipe);
+    console.log(recipe)
     dispatch(updateWishlist(recipe))
   }
 

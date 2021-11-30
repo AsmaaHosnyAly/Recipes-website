@@ -1,7 +1,7 @@
 import './filter.css'
 import { collection, onSnapshot, query, where } from '@firebase/firestore'
 import { db } from '../../../firebase'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const Filter = () => {
@@ -20,7 +20,7 @@ const Filter = () => {
         setRecipes(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
       )
     } else {
-      const q = query(colRef, where('categoryRecipeId', '==', `${category}`))
+      const q = query(colRef, where('recipeCatName', '==', `${category}`))
       onSnapshot(q, (snapshot) =>
         setRecipes(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
       )

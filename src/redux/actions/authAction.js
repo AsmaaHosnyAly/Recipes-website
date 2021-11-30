@@ -1,4 +1,4 @@
-import * as types from "../authActionTypes";
+import * as types from "./authActionTypes";
 import { auth, google, facebook, auth2 } from "../../firebase";
 import {
   createUserWithEmailAndPassword,
@@ -117,6 +117,7 @@ export const googleSignInInitiate = () => {
       .signInWithPopup(google)
       .then((user) => {
         dispatch(googleSigninSuccess(user));
+        console.log(user.displayName)
       })
       .catch((err) => dispatch(googleSigninFail(err.message)));
   };

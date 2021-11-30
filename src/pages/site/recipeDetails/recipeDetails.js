@@ -6,22 +6,16 @@ import './recipeDetails.css'
 import { useEffect } from 'react'
 
 function RecipeDetails(props) {
-  const recipeId = props.match.params.id
-
   // Get recipe details
+  const recipeId = props.match.params.id
   const [recipeDetails, setRecipeDetails] = useState([])
   const colRef = collection(db, 'recipes')
   const q = query(colRef, where('index', '==', parseInt(recipeId)))
   useEffect(() => {
-    onSnapshot(
-      q,
-      (snapshot) =>
-        snapshot.docs.map((doc) =>
-          setRecipeDetails({ ...doc.data(), id: doc.id })
-        )
-      // setRecipeDetails(
-      //   snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      // )
+    onSnapshot(q, (snapshot) =>
+      snapshot.docs.map((doc) =>
+        setRecipeDetails({ ...doc.data(), id: doc.id })
+      )
     )
   }, [])
 

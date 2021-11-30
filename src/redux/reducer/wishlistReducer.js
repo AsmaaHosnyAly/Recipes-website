@@ -1,4 +1,4 @@
-import * as types from "../authActionTypes"
+import * as types from "../actions/authActionTypes"
 const INITIAL_STATE = {
  recipes: []
 
