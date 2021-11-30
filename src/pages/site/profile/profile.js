@@ -4,6 +4,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import { useEffect, useState } from 'react'
 import { db } from '../../../firebase'
+import { useDispatch, useSelector } from "react-redux";
+import { updateWishlist, removeItemWishlist } from "../../../redux/actions/wishlist"
 import { Link } from 'react-router-dom'
 import {
   collection,
@@ -18,6 +20,8 @@ import {
 function Profile() {
 
   const [recipes, setRecipes] = useState([])
+  const _recipes  = useSelector((state) => state.wishlist.recipes);
+  const dispatch = useDispatch();
   // console.log(recipes);
   useEffect(
     () =>
@@ -27,6 +31,11 @@ function Profile() {
     []
   )
 
+  const removeItemFromWishList = index => {
+
+    dispatch(removeItemWishlist(index)
+    );
+  };
 
   return (
     // <section className='profile'>
@@ -90,11 +99,24 @@ function Profile() {
           <TabPanel>
             <h2>shopping list content</h2>
             <p>User shopping list goes here</p>
+
             <ul>
-              <li>ingredient 1</li>
-              <li>ingredient 2</li>
-              <li>ingredient 3</li>
-              <li>ingredient 4</li>
+            {_recipes.map((recipe) => {
+            return (
+              <>
+              <li
+                key={recipe.id} scope="row">
+                  {recipe.id}
+               </li>
+               <li><img src={recipe.imagePath} width="100" height="100"/></li>
+               <li></li>
+               <span onClick={() => removeItemFromWishList(recipe)} type="button" className="btn btn-danger btn-sm rounded-0" >Remove</span>
+              <li> </li>
+               
+                </>   
+               
+            );
+          })}
             </ul>
           </TabPanel>
           <TabPanel>

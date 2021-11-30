@@ -6,7 +6,7 @@ import wishlistReducer from './wishlistReducer'
 
 const rootReducer = combineReducers({
   user: userReducer,
-  wishlist: wishlistReducer,
+  wishlist:wishlistReducer,
 });
 
 export default rootReducer;

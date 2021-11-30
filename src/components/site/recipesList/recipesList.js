@@ -10,11 +10,8 @@ import {
 } from '../../../redux/actions/wishlist'
 
 const RecipeList = () => {
+  // Get Recipes
   const [recipes, setRecipes] = useState([])
-
-  const dispatch = useDispatch()
-
-  // --------------- Firebase
   useEffect(
     () =>
       onSnapshot(collection(db, 'recipes'), (snapshot) =>
@@ -23,13 +20,11 @@ const RecipeList = () => {
     []
   )
 
-  console.log(recipes)
-  const addToWishlist = (id) => {
-    console.log(id)
-    dispatch(updateWishlist(id))
-  }
-  const removeItemFromWishList = (index) => {
-    dispatch(removeItemWishlist(index))
+  // Handle Wishlist
+  const dispatch = useDispatch()
+  const addToWishlist = (recipe) => {
+    // console.log(recipe);
+    dispatch(updateWishlist(recipe))
   }
 
   return (
@@ -39,13 +34,13 @@ const RecipeList = () => {
           return (
             <>
               <Recipe {...recipe} key={recipe.id} />
-              <button onClick={() => addToWishlist(recipe.id)}>
+              <button onClick={addToWishlist(recipe)}>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width='16'
                   height='16'
                   fill='currentColor'
-                  className='bi bi-heart-fill'
+                  class='bi bi-heart-fill'
                   viewBox='0 0 16 16'
                 >
                   <path
