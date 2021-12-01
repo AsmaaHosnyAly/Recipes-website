@@ -31,17 +31,22 @@ function RecipeDetails(props) {
   const [isFilePicked, setIsFilePicked] = useState(false)
 
   // Handle Submit
+  const [reviews, setReviews] = useState([])
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(reviewMsg)
-    console.log(reviewImg)
+    console.log(reviews)
+    // console.log(reviewImg)
+    setReviews([...reviews, { msg: reviewMsg, img: reviewImg }])
+    // setReviewImgs([...reviewImgs, reviewImg])
+    // reviewMsgs.push(reviewMsg)
+    // setReviewMsg('')
+    // setReviewImg(
+    //   'https:////via.placeholder.com//400.png?text=tap+to+add+another+photo'
+    // )
     setReviewMsg('')
-    setReviewImg(
-      'https:////via.placeholder.com//400.png?text=tap+to+add+another+photo'
-    )
+    setReviewImg('')
     close()
   }
-
   // console.log(recipeDetails) // return selected recipe
   return (
     <>
@@ -229,31 +234,26 @@ function RecipeDetails(props) {
                     </form>
                   </div>
                 </Modal>
-                <div className='reviews__box__section'>
-                  <div className='review'>
-                    <h5 className='reviewer__name'>John Doe</h5>
-                    <span>⭐⭐⭐⭐⭐</span>
-                    <p className='review__message'>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Aspernatur rerum quisquam nulla, unde rem ab.
-                    </p>
-                  </div>
-                  <div className='review'>
-                    <h5 className='reviewer__name'>John Doe</h5>
-                    <span>⭐⭐⭐⭐⭐</span>
-                    <p className='review__message'>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Aspernatur rerum quisquam nulla, unde rem ab.
-                    </p>
-                  </div>
-                  <div className='review'>
-                    <h5 className='reviewer__name'>John Doe</h5>
-                    <span>⭐⭐⭐⭐⭐</span>
-                    <p className='review__message'>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Aspernatur rerum quisquam nulla, unde rem ab.
-                    </p>
-                  </div>
+                <div
+                  className='reviews__box__section'
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
+                  {reviews &&
+                    reviews.map((data, i) => {
+                      return (
+                        <div className='review' key={i}>
+                          <h5 className='reviewer__name'>
+                            {recipeDetails.recipeName}
+                          </h5>
+                          <p className='review__message'>{data.msg}</p>
+                          <img src={data.img} alt='...' />
+                        </div>
+                      )
+                    })}
                 </div>
               </div>
             </div>

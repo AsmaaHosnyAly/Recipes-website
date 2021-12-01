@@ -15,13 +15,14 @@ const Filter = () => {
   const [difficulty, setDifficulty] = useState('all')
 
   useEffect(() => {
-    onSnapshot(colRef, (snapshot) =>
-      setRecipes(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-    )
+    // onSnapshot(colRef, (snapshot) =>
+    //   setRecipes(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+    // )
+    handleSubmit()
   }, [])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  function handleSubmit(e) {
+    e?.preventDefault()
     if (category === 'all' && difficulty === 'all') {
       onSnapshot(colRef, (snapshot) =>
         setRecipes(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
@@ -137,55 +138,59 @@ const Filter = () => {
       <div className='filter__content'>
         <h3 className='filter__content__title'>Filtered Recipes</h3>
         <div className='filter__content__container'>
-          <section className='recipe-list'>
-            {recipes
-              .filter((res) => {
-                if (searchInput === '') {
-                  return res
-                } else if (
-                  res.recipeName
-                    .toLowerCase()
-                    .includes(searchInput.toLowerCase())
-                ) {
-                  return res
-                }
-              })
-              .map((res) => {
-                const {
-                  DegreeOfDifficulty,
-                  categoryRecipeId,
-                  imagePath,
-                  recipeName,
-                  recipePreperTime,
-                  id,
-                } = res
-                return (
-                  <Link to={`/${id}`} key={id}>
-                    <section className='one-recipe'>
-                      <div className='one-recipe__img'>
-                        <img src={imagePath} alt='...' />
-                      </div>
-                      <div className='one-recipe__content'>
-                        <div className='one-recipe__heading'>
-                          <small className='one-recipe__category'>
-                            {categoryRecipeId}
-                          </small>
-                          <h4 className='one-recipe__title'>{recipeName}</h4>
+          {recipes.length === 0 ? (
+            <h1>No Recipes found</h1>
+          ) : (
+            <section className='recipe-list'>
+              {recipes
+                .filter((res) => {
+                  if (searchInput === '') {
+                    return res
+                  } else if (
+                    res.recipeName
+                      .toLowerCase()
+                      .includes(searchInput.toLowerCase())
+                  ) {
+                    return res
+                  }
+                })
+                .map((res) => {
+                  const {
+                    DegreeOfDifficulty,
+                    categoryRecipeId,
+                    imagePath,
+                    recipeName,
+                    recipePreperTime,
+                    id,
+                  } = res
+                  return (
+                    <Link to={`/${id}`} key={id}>
+                      <section className='one-recipe'>
+                        <div className='one-recipe__img'>
+                          <img src={imagePath} alt='...' />
                         </div>
-                        <div className='one-recipe__data'>
-                          <p className='one-recipe__time'>
-                            <i class='bx bx-time-five'></i> {recipePreperTime}
-                          </p>
-                          <p className='one-recipe__difficulty'>
-                            {DegreeOfDifficulty.toUpperCase()}
-                          </p>
+                        <div className='one-recipe__content'>
+                          <div className='one-recipe__heading'>
+                            <small className='one-recipe__category'>
+                              {categoryRecipeId}
+                            </small>
+                            <h4 className='one-recipe__title'>{recipeName}</h4>
+                          </div>
+                          <div className='one-recipe__data'>
+                            <p className='one-recipe__time'>
+                              <i class='bx bx-time-five'></i> {recipePreperTime}
+                            </p>
+                            <p className='one-recipe__difficulty'>
+                              {DegreeOfDifficulty.toUpperCase()}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </section>
-                  </Link>
-                )
-              })}
-          </section>
+                      </section>
+                    </Link>
+                  )
+                })}
+            </section>
+          )}
         </div>
       </div>
     </section>

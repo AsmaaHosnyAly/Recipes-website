@@ -6,14 +6,11 @@ import { useEffect, useState } from 'react'
 import { collection, query, where, getDocs } from 'firebase/firestore'
 
 export default function RecipeCat() {
-  const nameCat = useParams()
-  const location = useLocation()
-  // const recipeId = search.split("=")[1]
-  const recipeCatId = location.search.slice(1).split('&')[0].split('=')[1]
+  const { id } = useParams()
   const [recipesCat, setRecipeCat] = useState([])
 
   const TestQuery = async (id) => {
-    console.log('call test query', id)
+    console.log(id)
     const q = query(
       collection(db, 'recipes'),
       where('categoryRecipeId', '==', `${id}`)
@@ -31,7 +28,7 @@ export default function RecipeCat() {
     setRecipeCat(list)
   }
   useEffect(() => {
-    TestQuery(recipeCatId)
+    TestQuery(id)
   }, [])
   return (
     <div

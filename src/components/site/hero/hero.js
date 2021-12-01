@@ -33,11 +33,11 @@ const Hero = () => {
         <div className='hero__left'>
           <div className='meal'>
             <img src={heroLeft1} alt='' className='meal__img' />
-            <p className='meal__title'>test</p>
+            <p className='meal__title'>best 21 recipes in MiddleEast</p>
           </div>
           <div className='meal'>
             <img src={heroLeft2} alt='' className='meal__img' />
-            <p className='meal__title'>test</p>
+            <p className='meal__title'>Arab Food</p>
           </div>
         </div>
 
@@ -57,7 +57,7 @@ const Hero = () => {
         >
           <SwiperSlide className='hero__slide'>
             <img src={heroMain} alt='' className='hero__main-img' />
-            <h3 className='hero__main-title'>test</h3>
+            <h3 className='hero__main-title'>grilled Chicken</h3>
             <p className='hero__main-description'>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
               consectetur optio consequuntur odio illo vitae corrupti, dolorum
@@ -66,7 +66,7 @@ const Hero = () => {
           </SwiperSlide>
           <SwiperSlide className='hero__slide'>
             <img src={heroMain2} alt='' className='hero__main-img' />
-            <h3 className='hero__main-title'>test</h3>
+            <h3 className='hero__main-title'>fired checken</h3>
             <p className='hero__main-description'>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
               consectetur optio consequuntur odio illo vitae corrupti, dolorum

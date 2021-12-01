@@ -117,10 +117,7 @@ const Search = () => {
             categories.map((categorie) => {
               return (
                 <SwiperSlide key={categorie.id}>
-                  <Link
-                    to={`/RecipeCat/${categorie.Name}?id=${categorie.id}`}
-                    className='categorie'
-                  >
+                  <Link to={`/RecipeCat/${categorie.id}`} className='categorie'>
                     <img
                       className='categorie__img'
                       src={categorie.imagePath}
